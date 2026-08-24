@@ -1,0 +1,286 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paleta base do campeonato */
+  --color-arcane-950: #120C22;
+  --color-arcane-900: #180F2C;
+  --color-arcane-800: #21163A;
+  --color-arcane-700: #2C1D47;
+  --color-arcane-600: #3a2555;
+  --color-arcane-500: #4A3268;
+  --color-abyss: #30346a;
+  --color-mist: #625974;
+  --color-mist-200: #B9B0C7;
+  --color-gold: #ac8c3b;
+  --color-gold-200: #E7D5A3;
+  --color-gold-400: #D2B36A;
+  --color-gold-700: #6F5A26;
+
+  --font-display: var(--font-cinzel), "Cinzel", ui-serif, Georgia, serif;
+  --font-sans: var(--font-public-sans), "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-numeric: var(--font-grenze), "Grenze Gotisch", ui-serif, Georgia, serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-arcane-950);
+  color: var(--color-mist-200);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* O realce padrão do toque destoa do tema escuro; o feedback vem do :active. */
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-gold) 45%, transparent);
+  color: #fff;
+}
+
+/* ---------- Scrollbar ---------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-arcane-500) transparent;
+}
+
+/* ---------- Tipografia utilitária ---------- */
+.font-display {
+  font-family: var(--font-display);
+}
+.num {
+  font-family: var(--font-numeric);
+  font-feature-settings: "lnum" 1;
+  letter-spacing: 0.01em;
+}
+.tracking-arcane {
+  letter-spacing: 0.22em;
+}
+
+/* ---------- Superfícies ---------- */
+.panel {
+  position: relative;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-gold) 18%, transparent);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-arcane-700) 62%, transparent) 0%,
+      color-mix(in srgb, var(--color-arcane-900) 78%, transparent) 100%
+    );
+  box-shadow:
+    0 1px 0 0 color-mix(in srgb, var(--color-gold-200) 8%, transparent) inset,
+    0 18px 50px -30px #000;
+}
+
+.panel-quiet {
+  border-color: color-mix(in srgb, var(--color-mist) 26%, transparent);
+}
+
+.panel-hover {
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+@media (hover: hover) {
+  .panel-hover:hover {
+  border-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+  transform: translateY(-2px);
+    box-shadow:
+      0 1px 0 0 color-mix(in srgb, var(--color-gold-200) 14%, transparent) inset,
+      0 26px 60px -32px #000,
+      0 0 34px -18px var(--color-gold);
+  }
+}
+
+/* Filete dourado decorativo */
+.rule-gold {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-gold) 70%, transparent),
+    transparent
+  );
+}
+
+.gold-text {
+  background: linear-gradient(
+    180deg,
+    var(--color-gold-200) 0%,
+    var(--color-gold-400) 45%,
+    var(--color-gold) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Fundo ---------- */
+.starfield {
+  background-image:
+    radial-gradient(1px 1px at 12% 22%, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(1px 1px at 42% 8%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1.4px 1.4px at 68% 34%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 88% 14%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 25% 62%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1.2px 1.2px at 78% 72%, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1px 1px at 55% 88%, rgba(255, 255, 255, 0.28), transparent),
+    radial-gradient(1px 1px at 8% 84%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 33% 44%, rgba(255, 255, 255, 0.22), transparent),
+    radial-gradient(1px 1px at 94% 54%, rgba(255, 255, 255, 0.3), transparent);
+  background-repeat: repeat;
+  background-size: 900px 700px;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------- Arte do commander como fundo (linhas do ranking e cards) ---------- */
+.art-layer {
+  position: relative;
+  isolation: isolate;
+}
+.art-layer > * {
+  position: relative;
+  z-index: 1;
+}
+.art-layer::before {
+  content: "";
+  position: absolute;
+  /* A ilustração ocupa só uma faixa à esquerda. Quanto menor a faixa, menos a arte
+     precisa ser ampliada para preencher a altura da linha — com a linha inteira,
+     `cover` ampliava quase 2x e mostrava uma fatia mínima do desenho. */
+  inset: 0 auto 0 0;
+  width: var(--art-largura, min(360px, 60%));
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(18, 12, 34, 0.55) 0%, rgba(18, 12, 34, 0) 70%),
+    var(--art);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: var(--art-opacity, 0.55);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 35%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, #000 35%, transparent 100%);
+  transition: opacity 0.25s ease;
+}
+@media (hover: hover) {
+  .art-layer:hover::before {
+    opacity: var(--art-opacity-hover, 0.75);
+  }
+}
+
+/* ---------- Brilho nos números ---------- */
+/* Halo fixo construído a partir de `currentColor`: cada número irradia na própria cor. */
+.num {
+  text-shadow:
+    0 0 8px color-mix(in srgb, currentColor 32%, transparent),
+    0 0 20px color-mix(in srgb, currentColor 14%, transparent);
+}
+
+/* ---------- Hover numa carta: o fundo da página vira a ilustração dela ---------- */
+/* Fica entre o Backdrop (-10) e o conteúdo, e é `fixed` para cobrir a viewport
+   inteira. Nenhum ancestral pode ter `transform`, senão o `fixed` passa a se
+   ancorar nele — por isso as seções que contêm cartas não usam a animação `rise`. */
+.spotlight-layer {
+  position: fixed;
+  inset: -80px;
+  z-index: -9;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(18, 12, 34, 0.62), rgba(18, 12, 34, 0.78)),
+    var(--art);
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px) saturate(1.15);
+  opacity: 0;
+  /* `visibility` garante que a camada não custe nada enquanto está apagada. */
+  visibility: hidden;
+  transition:
+    opacity 700ms ease,
+    visibility 0s linear 700ms;
+}
+
+@media (hover: hover) {
+  .spotlight-card:hover .spotlight-layer {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 700ms ease,
+      visibility 0s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-layer {
+    transition-duration: 200ms;
+  }
+}
+
+/* ---------- Navbar ---------- */
+/* No topo da página a barra não tem fundo nenhum. O vidro mora num ::before e entra
+   por opacidade assim que a página rola — gradiente não interpola, então a transição
+   precisa ser de opacidade, não de background. */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 320ms ease;
+  background:
+    /* brilho de vidro */
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.015) 60%, transparent 100%),
+    /* halo roxo saindo do topo */
+    radial-gradient(130% 200% at 50% 0%, rgba(78, 54, 112, 0.3) 0%, transparent 62%),
+    /* tingimento translúcido */
+    linear-gradient(180deg, rgba(33, 22, 58, 0.48) 0%, rgba(18, 12, 34, 0.3) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.site-header[data-rolou="true"]::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header::before {
+    transition-duration: 0ms;
+  }
+}
