@@ -176,7 +176,7 @@ async function buscarLinhas(): Promise<Linhas> {
       jogadores: [],
       partidas: [],
       error:
-        "Configure NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SECRET_KEY (ou NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) no .env.local.",
+        "Supabase nao configurado: defina SUPABASE_URL e SUPABASE_SECRET_KEY. Na Vercel, refaca o deploy depois de criar as variaveis.",
     };
   }
 
